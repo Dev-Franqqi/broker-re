@@ -26,7 +26,7 @@ export default function Navbar() {
           
             </div>
             
-            <Link className="font-semibold text-blue-700" to="#">Login</Link>
+            <Link className="font-semibold text-blue-700" to="/signup">Login</Link>
 
         
       </nav>
