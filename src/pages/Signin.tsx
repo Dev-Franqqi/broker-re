@@ -3,11 +3,11 @@ import { useState } from "react";
 import{ Link} from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
+import { FormEvent } from "react";
 export default function Signin() {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
     }
 

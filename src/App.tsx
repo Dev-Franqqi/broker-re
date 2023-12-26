@@ -4,7 +4,7 @@ import Navbar from "./mycomps/Navbar";
 import Icongroup from "./assets/icongroup.png"
 import { useInView } from "react-intersection-observer";
 import { motion ,useAnimation} from "framer-motion";
-const Home = () => {
+const App = () => {
    const controls1 = useAnimation();
    const controls2 = useAnimation();
    const [ref1, inView1] = useInView();
@@ -158,4 +158,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default App;

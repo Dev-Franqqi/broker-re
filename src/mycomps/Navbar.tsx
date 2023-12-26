@@ -1,7 +1,5 @@
-import Menubar from "./Menubar";
 import Logo from "../assets/Ellipse 9.png"
 import { Link } from "react-router-dom";
-import { useState } from "react";
 export default function Navbar() {
   
     
