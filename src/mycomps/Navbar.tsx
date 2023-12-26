@@ -1,7 +1,9 @@
-
+import Menubar from "./Menubar";
 import Logo from "../assets/Ellipse 9.png"
 import { Link } from "react-router-dom";
+import { useState } from "react";
 export default function Navbar() {
+  
     
     return (
       <nav className="flex justify-between px-3 p-2 sticky top-0 bg-white mb-10">
@@ -26,7 +28,7 @@ export default function Navbar() {
           
             </div>
             
-            <Link className="font-semibold text-blue-700" to="/signup">Login</Link>
+            <Link className="font-semibold text-blue-700" to="/signin">Login</Link>
 
         
       </nav>

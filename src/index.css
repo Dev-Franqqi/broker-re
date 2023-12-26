@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
  
 @layer base {
   :root {
@@ -74,8 +75,11 @@
     @apply bg-background text-foreground;
   }
 }
-
-h1{
+.buttonColor{
+  
+  background: #548FC5;
+}
+.homePageHeader{
   color: #000;
 
 text-align: center;
@@ -103,4 +107,9 @@ width: 19.0625rem;
 height: 4.1875rem;
 flex-shrink: 0; 
 @apply mx-auto
+}
+
+
+.signinBackground{
+  background-image :url(./assets/blurBackgroundsignin.png)
 }
