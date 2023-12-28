@@ -53,23 +53,50 @@ const App = () => {
         >
           <Navbar />
 
-          <h1 className="homePageHeader mb-3">
+          <motion.h1
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1 }}
+            className="homePageHeader mb-3"
+          >
             BEGIN YOUR TRADING AND INVESTMENT JOURNEY
-          </h1>
-          <p className="typo2 mb-3">
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.6, duration: 1 }}
+            className="typo2 mb-14"
+          >
             We also buy and sell cryptocurrencies and giftcards. Enjoy smooth
             and hassle-free trading with Cryptonetverse
-          </p>
-          <img src={Icongroup} alt="" className="mx-auto mb-3" />
+          </motion.p>
+          <motion.img
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.8, duration: 0.5 }}
+            src={Icongroup}
+            alt=""
+            className="mx-auto mb-3"
+          />
 
-          <h2 className=" text-black text-center font-inter text-lg font-bold tracking-wider mt-4 mb-2">
+          <motion.h2
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 1.8 }}
+            className=" text-black text-center font-inter text-lg font-bold tracking-wider mt-4 mb-2"
+          >
             WE PUT OUR INVESTORS FIRST
-          </h2>
+          </motion.h2>
 
-          <p className="text-black text-center font-inter text-base font-normal tracking-wide w-4/5 mx-auto">
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 3 }}
+            className="mb-3 text-black text-center font-inter text-base font-normal tracking-wide w-4/5 mx-auto"
+          >
             We are committed to providing exceptional service to all our
             investors while providing the best education to our team.
-          </p>
+          </motion.p>
 
           <p className="text-black text-center font-inter text-xs font-normal tracking-wider mx-2">
             Cryptonetverse An international online broker actively involved in
@@ -97,7 +124,7 @@ const App = () => {
               initial="hidden"
               animate={controls1}
               variants={variants}
-              transition={{ duration: 0.2, delay: 0.5 }}
+              transition={{ duration: 0.3, delay: 0.5 }}
               className="w-[245.11px] h-[166px] relative mt-7"
             >
               <div className="w-[10.14px] h-[57px] left-0 top-0 absolute bg-indigo-600" />
@@ -122,7 +149,7 @@ const App = () => {
               initial="hidden"
               animate={controls2}
               variants={variants}
-              transition={{ duration: 0.2, delay: 1 }}
+              transition={{ duration: 0.4, delay: 0.8 }}
               className="w-[245.11px] h-[181px] relative mt-4"
             >
               <div className="w-[10.14px] h-[57px] left-0 top-0 absolute bg-indigo-600" />
@@ -147,9 +174,7 @@ const App = () => {
                 ACCESS OUR FINANCIAL MARKETS
               </h3>
 
-              <div className="rounded-full bg-blue-500 bg-opacity-49 filter blur-xl">
-                ''
-              </div>
+              
             </section>
           </div>
         </motion.div>

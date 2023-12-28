@@ -4,7 +4,7 @@ export default function Navbar() {
   
     
     return (
-      <nav className="flex justify-between px-3 p-2 sticky top-0 bg-white mb-10">
+      <nav className="flex justify-between px-3 p-2 z-10 sticky top-0 bg-white mb-10">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
