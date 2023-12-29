@@ -58,7 +58,7 @@ export default function Signup() {
           <div></div>
         </nav>
 
-        <main>
+        <main className="signinBackground relative h-full py-10 ">
           <h1 className="font-bold text-2xl text-center">SIGNUP</h1>
           {error && <div className="text-red-500">{error}</div>}
           <form onSubmit={handleSubmit} className="mt-5">

@@ -1,0 +1,40 @@
+.crypto-list-container {
+
+  overflow: hidden;
+}
+
+.marquee-container {
+  display: flex;
+  gap: 1rem;
+  animation: marquee 10s linear infinite; /* Adjust the duration as needed */
+}
+
+.crypto-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.crypto-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.crypto-price,
+.crypto-change {
+  font-size: 0.875rem;
+}
+
+.negative {
+  color: red;
+}
+
+.positive {
+  color: green;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-100%);
+  }
+}
+
