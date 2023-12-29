@@ -25,11 +25,12 @@
 }
 
 .negative {
-  color: red;
+  @apply text-red-600 dark:text-red-500
+
 }
 
 .positive {
-  color: green;
+  @apply text-green-700 dark:text-green-500
 }
 
 @keyframes marquee {

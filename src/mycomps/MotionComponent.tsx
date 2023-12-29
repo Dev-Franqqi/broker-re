@@ -2,14 +2,15 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 type Props = {
-  isVisible:boolean
+  isVisible: boolean,
+  darkmode :boolean
 }
-const MotionComponent = ({ isVisible }:Props) => {
+const MotionComponent = ({ isVisible,darkmode }:Props) => {
   return (
     <AnimatePresence>
       {isVisible && (
-        <motion.div
-          className={`fixed top-10 left-0 h-screen w-full bg-blue-900 p-4 text-white transform-origin-left overflow-hidden z-10`}
+        <motion.div 
+          className={darkmode?'dark dark:bg-black fixed top-10 left-0 h-screen w-full bg-blue-900 p-4 text-white transform-origin-left overflow-hidden z-10':'fixed top-10 left-0 h-screen w-full bg-blue-900 p-4 text-white transform-origin-left overflow-hidden z-10'}
           initial={{ x: "-100%" }}
           animate={{ x: 0, transition: { type: "tween", duration: 0.3 } }}
           exit={{ x: "-100%", transition: { type: "tween", duration: 0.3 } }}

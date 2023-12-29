@@ -13,8 +13,8 @@ export default function Signin() {
 
     
   return (
-    <div className="h-screen">
-      <nav className="flex  justify-between px-3 p-2 sticky top-0 z-10 bg-white mb-10">
+    <div className="h-screen dark">
+      <nav className="flex  justify-between px-3 p-2 sticky top-0 z-10 bg-white dark:bg-black dark:text-white ">
         <Link to="/">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -40,14 +40,14 @@ export default function Signin() {
       </nav>
 
       <main
-        className="signinBackground relative h-full
+        className=" dark:bg-black relative py-10 h-full
        px-10"
       >
-        <h1 className="text-2xl font-bold text-center">SIGN IN</h1>
+        <h1 className="text-2xl font-bold  dark:text-white text-center">SIGN IN</h1>
         <form className="mt-10" onSubmit={handleSubmit}>
           <Input
             type="email"
-            className="border-2 border-gray-300 p-2 focus:border-gray-200 focus:outline-none focus:ring-0 mb-5"
+            className="border-2 w-full h-12 dark:border-white placeholder:white border-gray-300 p-2 focus:border-gray-200 focus:outline-none focus:ring-0 mb-5"
             onChange={(e) => {
               setEmail(e.target.value);
             }}
@@ -57,7 +57,7 @@ export default function Signin() {
           />
           <Input
             type="password"
-            className="border-2 border-gray-300 p-2 focus:border-gray-200 focus:outline-none mb-10 focus:ring-0"
+            className="border-2 dark:border-white w-full h-12 border-gray-300 p-2 focus:border-gray-200 focus:outline-none mb-10 focus:ring-0"
             onChange={(e) => {
               setPassword(e.target.value);
             }}
@@ -67,16 +67,16 @@ export default function Signin() {
           />
 
           <Button
-            className="buttonColor w-3/5 block mx-auto  text-white"
+            className="buttonColor w-3/5 block mx-auto dark:bg-blue-400 h-10 semibold text-base  text-white"
             type="submit"
           >
             Login
           </Button>
         </form>
 
-        <p className="mt-20 text-center text-gray-600">
+        <p className="mt-20 text-center text-gray-600 dark:text-gray-100">
           Don't have an account?{" "}
-          <Link className="text-blue-500 font-semibold" to="/signup">
+          <Link className="text-blue-500 dark:text-blue-400 font-semibold" to="/signup">
             Sign up
           </Link>
         </p>

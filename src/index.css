@@ -80,7 +80,7 @@
   background: #548FC5;
 }
 .homePageHeader{
-  color: #000;
+ 
 
 text-align: center;
 text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -95,8 +95,7 @@ padding:2rem
 }
 
 .typo2{
-  color: #000;
-
+  
 text-align: center;
 /* font-family: Montserrat; */
 font-size: 0.875rem;
