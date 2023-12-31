@@ -1,5 +1,6 @@
 import Logo from "../assets/Ellipse 9.png"
 import { Link } from "react-router-dom"
+import Cookies from "js-cookie"
 type Props = {
   on: boolean;
   onClick: () => void;
@@ -8,7 +9,14 @@ type Props = {
 };
 export default function Navbar({ on, onClick,darkmode,setdarkmode }:Props) {
   
-    
+  const turnOnDarkMode = () => {
+    Cookies.set('dark', 'true', { expires: 7 })
+    setdarkmode(true)
+      }
+  const turnOffDarkMode = () => {
+    Cookies.set('dark', 'false', { expires: 7 })
+    setdarkmode(false)
+      }
     return (
       <nav className="flex justify-between px-3 p-2 z-10 sticky top-0 bg-white dark:bg-black dark:text-white mb-10">
         <svg
@@ -60,7 +68,7 @@ export default function Navbar({ on, onClick,darkmode,setdarkmode }:Props) {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            onClick={() => setdarkmode(true)}
+            onClick={turnOnDarkMode}
             className={on ? "w-6 h-6" : "hidden"}
           >
             <path
@@ -79,7 +87,7 @@ export default function Navbar({ on, onClick,darkmode,setdarkmode }:Props) {
             strokeWidth={1.5}
             stroke="currentColor"
             className={on ? "w-6 h-6" : "hidden"}
-            onClick={() => setdarkmode(false)}
+            onClick={turnOffDarkMode}
           >
             <path
               strokeLinecap="round"

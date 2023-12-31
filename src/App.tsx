@@ -6,7 +6,7 @@ import { motion ,useAnimation} from "framer-motion";
 import { Button } from "./components/ui/button";
 import Cryptolist from "./mycomps/Cryptolist";
 import MotionComponent from "./mycomps/MotionComponent";
-
+import Cookies from "js-cookie"
 const App = () => {
 
   const [darkMode ,setDarkMode] = useState(false);
@@ -33,6 +33,9 @@ const App = () => {
 
 
   useEffect(() => {
+
+
+    
     // Simulate a delay of 2 seconds
     const delay = 2000;
 
@@ -45,6 +48,23 @@ const App = () => {
    if (inView2) {
       controls2.start("visible");
     }
+
+    const mode = Cookies.get('dark');
+    if (mode) {
+      if (mode === "true") {
+        setDarkMode(true);
+      } else {
+        setDarkMode(false);
+      }
+      
+    }
+
+    else {
+      setDarkMode(false)
+    }
+
+   
+
   
 
 
@@ -223,7 +243,7 @@ const App = () => {
 
               <div className="text-center border px-4 py-9 text-sm rounded-md mb-7 dark:border-white">
                 <p className="font-semibold">STARTER</p>
-                <p className="font-bold text-2xl mb-3">1000 $/EUR</p>
+                <p className="font-bold text-2xl mb-3 ">1000 $/EUR</p>
                 <ul className="leading-8 mb-6">
                   <li>
                     Trading Instruments: 36 currency pairs, metals,

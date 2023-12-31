@@ -1,19 +1,53 @@
 import Logo from "../assets/Ellipse 9.png";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import{ Link} from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { FormEvent } from "react";
+
+import Cookies from "js-cookie"
 export default function Signin() {
     const [email, setEmail] = useState<string>('')
-    const [password, setPassword] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [darkmode,setDarkmode] = useState(false)
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+      e.preventDefault();
+      
+
+  }
+
+  useEffect(() => {
+
+
+    const checkMode = async () => {
+      const mode = await Cookies.get("dark");
+        console.log(typeof mode);
+      
+        if(mode) {
+          if(mode === "true") {
+            setDarkmode(true);
+            console.log("hi");
+          } else {
+            setDarkmode(false);
+            
+          }
+        }
+        console.log(typeof mode);
+
+    
+      
     }
+
+    checkMode()
+  
+  
+  
+  },[darkmode])
+
 
     
   return (
-    <div className="h-screen dark">
+    <div className={darkmode?"h-screen dark":"h-screen"}>
       <nav className="flex  justify-between px-3 p-2 sticky top-0 z-10 bg-white dark:bg-black dark:text-white ">
         <Link to="/">
           <svg

@@ -1,9 +1,10 @@
 import Logo from "../assets/Ellipse 9.png"
 import { Input } from "@/components/ui/input"
-import { useState } from "react"
+import { useState,useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { FormEvent } from "react"
 import { Link } from "react-router-dom"
+import Cookies from "js-cookie"
 export default function Signup() {
     const [firstname,setFirstname] = useState('')
     const [lastname,setLastname] = useState('')
@@ -14,7 +15,7 @@ export default function Signup() {
     const [phone,setPhone] = useState('')
     const [error,setError] = useState<string|null>();
     const [isloading,setIsloading] = useState<boolean>()
-
+    const [darkmode,setDarkmode] = useState(false)
     const confirmPassword = (a:string,b:string) =>{
         if(a!==b){
             setError("Passwords do not match")
@@ -30,10 +31,21 @@ export default function Signup() {
         setIsloading(true)
         confirmPassword(password,confirm)
 
-    }
+  }
+  
+    useEffect(() => {
+      const mode = Cookies.get("dark");
+      if (mode) {
+        if (mode === "true") {
+          setDarkmode(true);
+        } else {
+          setDarkmode(false);
+        }
+      }
+    }, []);
     return (
-      <div className="p-4">
-        <nav className="flex justify-between mb-4 sticky top-0 px-3 p-2 bg-white z-10">
+      <div className={darkmode?"dark dark:bg-black":""}>
+        <nav className="flex justify-between  sticky top-0 px-3 p-2 bg-white z-10 dark:bg-black dark:text-white">
           <Link to="/">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -58,7 +70,7 @@ export default function Signup() {
           <div></div>
         </nav>
 
-        <main className="signinBackground relative h-full py-10 ">
+        <main className="dark:bg-black dark:text-white relative h-full p-5 py-10 ">
           <h1 className="font-bold text-2xl text-center">SIGNUP</h1>
           {error && <div className="text-red-500">{error}</div>}
           <form onSubmit={handleSubmit} className="mt-5">
@@ -66,7 +78,7 @@ export default function Signup() {
               <div className="w-3/6">
                 <label>Firstname</label>
                 <Input
-                  className="  rounded border-2"
+                  className="dark:border-white  rounded border-2"
                   type="text"
                   value={firstname}
                   onChange={(e) => setFirstname(e.target.value)}
@@ -77,9 +89,10 @@ export default function Signup() {
               <div className="w-3/6">
                 <label>Lastname</label>
                 <Input
-                  className=" p-2 rounded border-2"
+                  className=" p-2 rounded border-2 dark:border-white"
                   type="text"
                   value={lastname}
+                  
                   onChange={(e) => setLastname(e.target.value)}
                   required
                 />
@@ -89,7 +102,7 @@ export default function Signup() {
             <div className="mb-4">
               <label htmlFor="email">Email address</label>
               <Input
-                className="rounded border-2"
+                className="rounded border-2 dark:border-white"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -99,7 +112,7 @@ export default function Signup() {
             <div className="mb-4">
               <label htmlFor="password">Password</label>
               <Input
-                className="rounded border-2"
+                className="dark:border-white rounded border-2"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -109,7 +122,7 @@ export default function Signup() {
             <div className="mb-4">
               <label htmlFor="Confirm password">Confirm Password</label>
               <Input
-                className="rounded border-2"
+                className="dark:border-white rounded border-2"
                 type="text"
                 value={confirm}
                 onChange={(e) => setConfirm(e.target.value)}
@@ -119,7 +132,7 @@ export default function Signup() {
             <div className="mb-4">
               <label htmlFor="Country">Country</label>
               <Input
-                className="rounded border-2"
+                className="dark:border-white rounded border-2"
                 type="text"
                 value={country}
                 onChange={(e) => setCountry(e.target.value)}
@@ -129,7 +142,7 @@ export default function Signup() {
             <div className="mb-4">
               <label htmlFor="Phone">Phone</label>
               <Input
-                className="rounded border-2"
+                className="dark:border-white rounded border-2"
                 type="text"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
@@ -146,7 +159,7 @@ export default function Signup() {
             </Button>
           </form>
         </main>
-        <p className="text-center mt-3 text-gray-600">
+        <p className="dark:bg-black dark:text-white text-center pt-3 text-gray-600">
           Already Have an Account?{" "}
           <Link to="/signin" className="font-semibold text-blue-500">
             Sign in
