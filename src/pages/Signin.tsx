@@ -4,35 +4,60 @@ import{ Link} from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { FormEvent } from "react";
-
+import { useNavigate } from "react-router-dom";
+import supabase from "@/supabase";
 import Cookies from "js-cookie"
 export default function Signin() {
+  const navigate = useNavigate()
     const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
-  const [darkmode,setDarkmode] = useState(false)
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      
+  const [darkmode, setDarkmode] = useState(false)
+  const [errorMessage, setErrorMessage] = useState<string>()
+  const [isLoading ,setIsLoading] = useState(false)
+   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+     e.preventDefault();
+     setIsLoading(true);
 
-  }
+     const { data, error } = await supabase.auth.signInWithPassword({
+       email: email,
+       password: password,
+     });
+
+     if (error) {
+       setErrorMessage(error.message);
+       setIsLoading(false);
+       return;
+     }
+     Cookies.set("User", JSON.stringify(data), { expires: 7 });
+     navigate("/dashboard");
+
+     setIsLoading(false);
+   };
+  
 
   useEffect(() => {
 
 
     const checkMode = async () => {
       const mode = await Cookies.get("dark");
-        console.log(typeof mode);
+        
       
         if(mode) {
           if(mode === "true") {
             setDarkmode(true);
-            console.log("hi");
+           
           } else {
             setDarkmode(false);
             
           }
-        }
-        console.log(typeof mode);
+      }
+      const userCookie = Cookies.get('user');
+    if (userCookie) {
+      navigate('/dashboard')
+      
+    }
+  
+       
 
     
       
@@ -74,9 +99,11 @@ export default function Signin() {
       </nav>
 
       <main
-        className=" dark:bg-black relative py-10 h-full
+        className=" dark:bg-black dark:text-white relative py-10 h-full
        px-10"
       >
+
+        {errorMessage && <div className="text-red-600 dark:bg-white w-fit p-3 ">{errorMessage}</div>}
         <h1 className="text-2xl font-bold  dark:text-white text-center">SIGN IN</h1>
         <form className="mt-10" onSubmit={handleSubmit}>
           <Input
@@ -103,6 +130,7 @@ export default function Signin() {
           <Button
             className="buttonColor w-3/5 block mx-auto dark:bg-blue-400 h-10 semibold text-base  text-white"
             type="submit"
+            disabled={isLoading}
           >
             Login
           </Button>

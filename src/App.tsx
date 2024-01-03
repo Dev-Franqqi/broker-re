@@ -40,7 +40,7 @@ const App = () => {
     const delay = 2000;
 
     const timer = setTimeout(() => {
-      setLoading(false);
+      setLoading(false );
     }, delay);
    if (inView1) {
       controls1.start("visible");
@@ -83,7 +83,7 @@ const App = () => {
       >
         {loading ? (
           <div className="flex items-center justify-center min-h-screen">
-            <div className="w-5 h-5 animate-ping rounded-full bg-blue-900"></div>
+            <div className="w-5 h-5 animate-ping rounded-full dark:bg-white bg-blue-900"></div>
           </div>
         ) : (
           <motion.div

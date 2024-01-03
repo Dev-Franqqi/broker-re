@@ -6,7 +6,7 @@ import './index.css'
 import Signup from "./pages/Signup"
 import Signin from './pages/Signin.tsx'
 import Dashboard from './pages/Dashboard.tsx'
-
+import Accountdetails from "./pages/Accountdetails.tsx"
 const router = createBrowserRouter([
   {
     path: "/",
@@ -23,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: '/dashboard',
     element:<Dashboard />
+  },
+  {
+    path: '/dashboard/details',
+    element:<Accountdetails />
   }
 ]);
 
