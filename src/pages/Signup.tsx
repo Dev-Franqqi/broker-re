@@ -23,7 +23,9 @@ export default function Signup() {
       const comparePassword = (a: string, b: string) => {
         if (!(a === b)) {
           setErrorMessage("Passwords do not match");
+          setIsLoading(false);
           throw new Error("passwords do not match");
+          
         }
       };
       const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -64,7 +66,8 @@ export default function Signup() {
               password: password,
               country: country,
               phone: phone,
-              userid:data?.user?.id
+              userid: data?.user?.id,
+              balance:0
             });
 
           if (insertError) {

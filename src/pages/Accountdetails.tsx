@@ -2,11 +2,32 @@ import { Button } from "@/components/ui/button";
 import { useState,useEffect } from "react"
 import Cookies from "js-cookie"
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+type Myuser = {
+  country: string;
+  created_at: string;
+  email: string;
+  firstname: string;
+  id: number;
+  lastname: string;
+  password: string;
+  phone: string;
+  userid: string;
+  balance: number;
+};
+
+
+
 export default function Accountdetails() {
-    const [darkmode, setDarkMode] = useState<boolean>(false)
+  const [darkmode, setDarkMode] = useState<boolean>(false)
+  const [user, setUser] = useState<Myuser>()
+  const navigate = useNavigate()
+  const [loading,setLoading] = useState(true)
+  
     useEffect(() => {
         
-        const dark = Cookies.get('dark')
+      const dark = Cookies.get('dark')
+      
         if (dark) {
         
 
@@ -18,7 +39,19 @@ export default function Accountdetails() {
                 setDarkMode(false)
         
             }
-        }
+      }
+      
+      const person = Cookies.get("Person");
+      if (person) {
+        setUser(JSON.parse(person))
+        console.log(person)
+        setLoading(false)
+        
+      }
+      else {
+        navigate('/signin')
+        
+      }
     
     }, [])
   return (
@@ -47,65 +80,72 @@ export default function Accountdetails() {
 
         <div></div>
       </nav>
-      <main className="px-3 py-10">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="70"
-          height="70"
-          viewBox="0 0 70 70"
-          fill="none"
-          className="mx-auto block"
-        >
-          <circle cx="35" cy="35" r="35" fill="#D9D9D9">
-            F
-          </circle>
-        </svg>
 
-        <div className="flex flex-col gap-y-3 mt-3">
-          <div>
-            <p className="text-sm mb-1">Name</p>
-            <div className="ml-{27px} mr-{20px} flex justify-between p-2 rounded-md border-2 border-gray-100">
-              <span className=" font-normal">Franklin Ebi</span>
+      {loading ? (
+        <div>Loading</div>
+      ) : (
+        <main className="px-3 py-10">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="70"
+            height="70"
+            viewBox="0 0 70 70"
+            fill="none"
+            className="mx-auto block"
+          >
+            <circle cx="35" cy="35" r="35" fill="#D9D9D9">
+              F
+            </circle>
+          </svg>
 
-              <span className="font-bold">Edit</span>
+          <div className="flex flex-col gap-y-3 mt-3">
+            <div>
+              <p className="text-sm mb-1">Name</p>
+              <div className="ml-{27px} mr-{20px} flex justify-between p-2 rounded-md border-2 border-gray-100">
+                <span className=" font-normal">
+                  {user?.firstname + " " + user?.lastname}
+                </span>
+
+                <span className="font-bold">Edit</span>
+              </div>
+            </div>
+            <div>
+              <p className="text-sm mb-1">Email</p>
+              <div className="ml-{27px} mr-{20px} flex justify-between rounded-md border-2 border-gray-100 p-2 no-underline">
+                  <span className=" font-normal">{ user.email}</span>
+              </div>
+            </div>
+            <div>
+              <p className="text-sm mb-1">Password</p>
+              <div className="ml-{27px} mr-{20px} flex justify-between border-2 border-gray-100 p-2 ">
+                <span className=" font-normal">***********</span>
+
+                <span>Edit</span>
+              </div>
+            </div>
+            <div>
+              <p className="text-sm mb-1">Country</p>
+              <div className="ml-{27px} mr-{20px} flex justify-between border-2 border-gray-100 p-2 rounded-md">
+                  <span className=" font-normal">{ user?.country}</span>
+
+                <span>Edit</span>
+              </div>
+            </div>
+            <div>
+              <p className="text-sm mb-1">Phone</p>
+              <div className="ml-{27px} mr-{20px} flex justify-between border-2 border-gray-100 p-2 rounded-md">
+                <span className=" font-normal">070474923494</span>
+
+                <span>Edit</span>
+              </div>
             </div>
           </div>
-          <div>
-            <p className="text-sm mb-1">Email</p>
-            <div className="ml-{27px} mr-{20px} flex justify-between rounded-md border-2 border-gray-100 p-2 no-underline">
-              <span className=" font-normal">franklinebi75@gmail.com</span>
-            </div>
-          </div>
-          <div>
-            <p className="text-sm mb-1">Password</p>
-            <div className="ml-{27px} mr-{20px} flex justify-between border-2 border-gray-100 p-2 ">
-              <span className=" font-normal">***********</span>
 
-              <span>Edit</span>
-            </div>
-          </div>
-          <div>
-            <p className="text-sm mb-1">Country</p>
-            <div className="ml-{27px} mr-{20px} flex justify-between border-2 border-gray-100 p-2 rounded-md">
-              <span className=" font-normal">Nigeria</span>
-
-              <span>Edit</span>
-            </div>
-          </div>
-          <div>
-            <p className="text-sm mb-1">Phone</p>
-            <div className="ml-{27px} mr-{20px} flex justify-between border-2 border-gray-100 p-2 rounded-md">
-              <span className=" font-normal">070474923494</span>
-
-              <span>Edit</span>
-            </div>
-          </div>
-        </div>
-
-        <Button className="block mx-auto p-2 mt-6 bg-blue-600 text-white">
-          CONFIRM CHANGES
-        </Button>
-      </main>
+          <Button className="block mx-auto p-2 mt-6 bg-blue-600 text-white">
+            CONFIRM CHANGES
+          </Button>
+        </main>
+      )}
     </div>
   );
 }

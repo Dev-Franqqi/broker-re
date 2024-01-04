@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import Dashboardmenu from "@/mycomps/Dashboardmenu";
 import Dashboardskeleton from "@/mycomps/Dashboardskeleton";
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -27,7 +28,8 @@ type Myuser = {
   lastname: string;
   password: string;
   phone: string;
-  userid: string;
+    userid: string;
+  balance:number
 };
 
 
@@ -39,7 +41,17 @@ export default function Dashboard() {
     const [darkmode ,setDarkMode] = useState(false)
     const [isVisible, setIsVisible] = useState(false)
     const [email, setEmail] = useState<string>()
-    const [mydetails,setMydetails]= useState<Myuser>()
+    const [mydetails, setMydetails] = useState<Myuser>()
+    const [btc, setBTC] = useState<number>()
+         const logoutHandler = async () => {
+           const { error } = await supabase.auth.signOut();
+           if (error) {
+             throw Error("unable to logout");
+           } else {
+             Cookies.remove("User");
+             navigate("/signin");
+           }
+         };
   const turnOnDarkMode = () => {
     Cookies.set("dark", "true", { expires: 7 });
     setDarkMode(true);
@@ -94,7 +106,28 @@ export default function Dashboard() {
        },
      ];
     useEffect(() => {
-      const mode = Cookies.get("dark");
+
+
+        
+        async function usdToBTC(amount: number) {
+          // Get the latest Bitcoin rate in USD from the Coindesk API
+          const response = await fetch(
+            "https://api.coindesk.com/v1/bpi/currentprice.json"
+          );
+          const data = await response.json();
+          const rate = data.bpi.USD.rate_float;
+
+          // Convert the amount to Bitcoin
+          const btcAmount = parseFloat((amount / rate).toFixed(8));
+
+          setBTC(btcAmount);
+          console.log(btc);
+        }
+
+   
+
+        const mode = Cookies.get("dark");
+        
 
       if (mode) {
         setDarkMode(mode === "true");
@@ -143,13 +176,17 @@ export default function Dashboard() {
        
     const fetchDataAndSetState = async () => {
   try {
-    const userDetails = await fetchUserByEmail();
+      const userDetails = await fetchUserByEmail();
+      Cookies.set("Person",JSON.stringify(userDetails))
 
     // Set the state based on the result
-    setMydetails(userDetails);
+      setMydetails(userDetails);
+      usdToBTC(userDetails.balance)
+      
 
     if (userDetails) {
-      setLoading(false);
+        setLoading(false);
+        
     }
 
     console.log(email);
@@ -157,106 +194,116 @@ export default function Dashboard() {
   } catch (error) {
     console.error(error);
   }
-};
+        };
+        
 
 // Call the function
-fetchDataAndSetState();
+        fetchDataAndSetState();
+        
     }, [email]);
 
 
     return (
-
-        <div className={darkmode ? "h-screen dark" : "h-screen"}>
-            
-            {loading ? (<Dashboardskeleton />) : (
-                <>
-                <nav className="flex shadow-lg  justify-between p-4 dark:bg-blue-900 dark:text-white">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6"
-            onClick={() => {
-              setIsVisible(!isVisible);
-            }}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M3.75 9h16.5m-16.5 6.75h16.5"
-            />
-          </svg>
-
-          <header className="font-bold text-center ml-6">Dashboard</header>
-
-          <Link className="text-blue-600 dark:text-blue-400 font-medium text-right" to="#">
-            Log out
-          </Link>
-        </nav>
-        <Dashboardmenu isVisible={isVisible} darkmode={darkmode} />
-
-        <main className=" px-2 py-9 dark:bg-blue-900 dark:text-white">
-          <div className=" flex justify-between p-1 rounded-md  border-neutral-200 w-full   ">
-            <div className=" flex">
-              <div className="bg-blue-400 rounded-full text-center py-2 text-2xl text-white w-12 h-12">
-                F
-              </div>
-              <div className="ml-2 mt-1">
-                            <p className="font-semibold">{ mydetails?.firstname + ' ' +mydetails?.lastname}</p>
-                <p className="text-xs font-light">Personal account</p>
-              </div>
-            </div>
-            {!darkmode && (
+      <div className={darkmode ? "h-screen dark" : "h-screen"}>
+        {loading ? (
+          <Dashboardskeleton />
+        ) : (
+          <>
+            <nav className="flex shadow-lg  justify-between p-4 dark:bg-blue-900 dark:text-white">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                onClick={turnOnDarkMode}
-                className={"w-6 h-6"}
+                className="w-6 h-6"
+                onClick={() => {
+                  setIsVisible(!isVisible);
+                }}
               >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z"
+                  d="M3.75 9h16.5m-16.5 6.75h16.5"
                 />
               </svg>
-            )}
 
-            {darkmode && (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className={"w-6 h-6"}
-                onClick={turnOffDarkMode}
+              <header className="font-bold text-center ml-6">Dashboard</header>
+
+                            <Button
+                                variant={"ghost"}
+
+                                
+                className="text-blue-600 dark:text-blue-400 bg-none font-medium text-right"
+                onClick={logoutHandler}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
-                />
-              </svg>
-            )}
-          </div>
+                Log out
+              </Button>
+            </nav>
+            <Dashboardmenu isVisible={isVisible} darkmode={darkmode} />
 
-          <div className=" bg-blue-500 dark:text-white  text-white mt-3 p-4 rounded-lg shadow-md mb-5 pt-14">
-            <div className="flex justify-between text-xs font-medium">
-              <p>CURRENT BALANCE</p>
-              <p>BTC BALANCE</p>
-            </div>
-            <div className="flex justify-between text-2xl font-semibold">
-              <p>$5,200.00</p>
-              <p>0.0023442</p>
-            </div>
-          </div>
+            <main className=" px-2 py-9 dark:bg-blue-900 dark:text-white">
+              <div className=" flex justify-between p-1 rounded-md  border-neutral-200 w-full   ">
+                <div className=" flex">
+                  <div className="bg-blue-400 rounded-full text-center py-2 text-2xl text-white w-12 h-12">
+                    F
+                  </div>
+                  <div className="ml-2 mt-1">
+                    <p className="font-semibold">
+                      {mydetails?.firstname + " " + mydetails?.lastname}
+                    </p>
+                    <p className="text-xs font-light">Personal account</p>
+                  </div>
+                </div>
+                {!darkmode && (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    onClick={turnOnDarkMode}
+                    className={"w-6 h-6"}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z"
+                    />
+                  </svg>
+                )}
 
-          {/* <section className="flex justify-between w-4/5 mt-4  mx-auto">
+                {darkmode && (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className={"w-6 h-6"}
+                    onClick={turnOffDarkMode}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
+                    />
+                  </svg>
+                )}
+              </div>
+
+              <div className=" bg-blue-500 dark:text-white  text-white mt-3 p-4 rounded-lg shadow-md mb-5 pt-14">
+                <div className="flex justify-between text-xs font-medium">
+                  <p>CURRENT BALANCE</p>
+                  <p>BTC BALANCE</p>
+                </div>
+                <div className="flex justify-between text-2xl font-semibold">
+                  <p>${mydetails?.balance + ".00"}</p>
+                                    <p>{btc}</p>
+                </div>
+              </div>
+
+              {/* <section className="flex justify-between w-4/5 mt-4  mx-auto">
             <div className="border dark:border-gray-200 shadow-sm rounded-lg p-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -311,43 +358,43 @@ fetchDataAndSetState();
             </div>
           </section> */}
 
-          <section className="p-3 mt-3">
-            <h1 className="font-bold">Transactions</h1>
-            <Table className="mt-5">
-              <TableCaption>A list of your recent invoices.</TableCaption>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-[100px]">Invoice</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Method</TableHead>
-                  <TableHead className="text-right">Amount</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {invoices.map((invoice) => (
-                  <TableRow key={invoice.invoice}>
-                    <TableCell className="font-medium">
-                      {invoice.invoice}
-                    </TableCell>
-                    <TableCell>{invoice.paymentStatus}</TableCell>
-                    <TableCell>{invoice.paymentMethod}</TableCell>
-                    <TableCell className="text-right">
-                      {invoice.totalAmount}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-              <TableFooter>
-                <TableRow>
-                  <TableCell colSpan={3}>Total</TableCell>
-                  <TableCell className="text-right">$2,500.00</TableCell>
-                </TableRow>
-              </TableFooter>
-            </Table>
-          </section>
-        </main></>
-            ) }
-        
+              <section className="p-3 mt-3">
+                <h1 className="font-bold">Transactions</h1>
+                <Table className="mt-5">
+                  <TableCaption>A list of your recent invoices.</TableCaption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="w-[100px]">Invoice</TableHead>
+                      <TableHead>Status</TableHead>
+                      <TableHead>Method</TableHead>
+                      <TableHead className="text-right">Amount</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {invoices.map((invoice) => (
+                      <TableRow key={invoice.invoice}>
+                        <TableCell className="font-medium">
+                          {invoice.invoice}
+                        </TableCell>
+                        <TableCell>{invoice.paymentStatus}</TableCell>
+                        <TableCell>{invoice.paymentMethod}</TableCell>
+                        <TableCell className="text-right">
+                          {invoice.totalAmount}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                  <TableFooter>
+                    <TableRow>
+                      <TableCell colSpan={3}>Total</TableCell>
+                      <TableCell className="text-right">$2,500.00</TableCell>
+                    </TableRow>
+                  </TableFooter>
+                </Table>
+              </section>
+            </main>
+          </>
+        )}
       </div>
     );
 }
