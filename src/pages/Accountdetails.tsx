@@ -112,7 +112,7 @@ export default function Accountdetails() {
             <div>
               <p className="text-sm mb-1">Email</p>
               <div className="ml-{27px} mr-{20px} flex justify-between rounded-md border-2 border-gray-100 p-2 no-underline">
-                  <span className=" font-normal">{ user.email}</span>
+                  <span className=" font-normal">{ user?.email}</span>
               </div>
             </div>
             <div>
