@@ -105,7 +105,7 @@ const App = () => {
               initial={{ opacity: 0, y: -30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 1 }}
-              className="homePageHeader mt-15"
+              className="homePageHeader mt-15 font-extrabold"
             >
               BEGIN YOUR TRADING AND INVESTMENT JOURNEY
             </motion.h1>
@@ -157,12 +157,12 @@ const App = () => {
             margins. Check out spreads on our most popular cash instruments.
           </p> */}
 
-            <div className="bg-gray-200 dark:bg-blue-900 dark:text-white mt-10 py-10 px-3 ">
+            <div className="bg-gray-200 dark:bg-blue-900 dark:text-white mt-10 py-10 h-fit px-3 ">
               <h3 className=" text-center font-inter text-xl font-bold tracking-wider">
                 EXPERIENCE MORE THAN JUST TRADING
               </h3>
 
-              <p className=" text-center font-inter text-base font-normal tracking-wider mt-3 mb-10">
+              <p className=" text-center font-inter text-base font-normal  mt-3 mb-10">
                 We follow a very strict and disciplined investment process
                 because we understand that we are working with our customers'
                 money. Investments mean a lot to us, and we respect the trust of
@@ -174,19 +174,22 @@ const App = () => {
                 animate={controls1}
                 variants={variants}
                 transition={{ duration: 0.3, delay: 0.5 }}
-                className="w-[245.11px] h-[166px] relative mt-7"
+                className="w-[245.11px] h-fit mt-7 mb-2"
               >
-                <div className="w-[10.14px] h-[57px] left-0 top-0 absolute bg-indigo-600" />
-                <div className="w-[154.80px] h-[49px] left-[21.19px] top-[4px] absolute">
-                  <span className=" text-base font-bold font-['Inter'] leading-[23px] tracking-wider">
-                    ECONOMIC
-                    <br />
-                  </span>
-                  <span className=" text-sm font-medium font-['Inter'] leading-[23px] tracking-wider">
-                    Analysis
-                  </span>
+                <div className="flex gap-2">
+                  <div className="w-[10.14px] h-[57px]  bg-indigo-600" />
+                  <div className="w-[154.80px] h-[49px] ">
+                    <span className=" font-bold leading-[23px]">
+                      ECONOMIC
+                      <br />
+                    </span>
+                    <span className="  font-medium leading-[23px]">
+                      Analysis
+                    </span>
+                  </div>
                 </div>
-                <div className="w-[234.97px] left-[10.14px] top-[91px] absolute  text-xs font-normal font-['Inter'] tracking-wide">
+
+                <div className="w-[234.97px] left-[10.14px] ">
                   Stay one step ahead with leading market analysis. Keep your
                   trading costs low with competitive spreads, commissions, and
                   low margins.
@@ -199,19 +202,22 @@ const App = () => {
                 animate={controls2}
                 variants={variants}
                 transition={{ duration: 0.4, delay: 0.8 }}
-                className="w-[245.11px] h-[181px] relative mt-4"
+                className="w-[245.11px] h-fit  mt-8"
               >
-                <div className="w-[10.14px] h-[57px] left-0 top-0 absolute bg-indigo-600 " />
-                <div className="w-[154.80px] h-[49px] left-[21.19px] top-[4px] absolute">
-                  <span className=" text-base font-bold font-['Inter'] leading-[23px] tracking-wider">
-                    TECHNICAL
-                    <br />
-                  </span>
-                  <span className=" text-sm font-medium font-['Inter'] leading-[23px] tracking-wider">
-                    Analysis
-                  </span>
+                <div className="flex gap-2">
+                  <div className="w-[10.14px] h-[57px]  bg-indigo-600 " />
+                  <div className="w-[154.80px] h-[49px] ">
+                    <span className=" font-bold  leading-[23px]">
+                      TECHNICAL
+                      <br />
+                    </span>
+                    <span className=" font-medium leading-[23px] ">
+                      Analysis
+                    </span>
+                  </div>
                 </div>
-                <div className="w-[234.97px] left-[10.14px] top-[91px] absolute  text-xs font-normal font-['Inter'] tracking-wide">
+
+                <div className="w-[234.97px]">
                   Real-time and detailed data monitoring for trades, stocks, and
                   binaries with clear graphical representation. Additional
                   reference for users with pool data.
@@ -223,7 +229,7 @@ const App = () => {
               <h3 className="text-xl font-bold mb-5">
                 ACCESS OUR FINANCIAL MARKETS
               </h3>
-              <p className=" text-sm">
+              <p className=" text-s">
                 Bitcoin is the first decentralized digital currency. This
                 cryptocurrency was created in 2009. It was first mentioned on
                 October 31, 2008, when a person named Satoshi Nakamoto, who is

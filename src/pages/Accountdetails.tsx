@@ -3,6 +3,7 @@ import { useState,useEffect } from "react"
 import Cookies from "js-cookie"
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 type Myuser = {
   country: string;
   created_at: string;
@@ -85,19 +86,11 @@ export default function Accountdetails() {
         <div>Loading</div>
       ) : (
         <main className="px-3 py-10">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="70"
-            height="70"
-            viewBox="0 0 70 70"
-            fill="none"
-            className="mx-auto block"
-          >
-            <circle cx="35" cy="35" r="35" fill="#D9D9D9">
-              F
-            </circle>
-          </svg>
-
+            <Avatar className="mx-auto size-16">
+              <AvatarFallback className="text-3xl">
+                {user?.firstname[0]}
+              </AvatarFallback>
+         </Avatar>
           <div className="flex flex-col gap-y-3 mt-3">
             <div>
               <p className="text-sm mb-1">Name</p>
@@ -106,7 +99,7 @@ export default function Accountdetails() {
                   {user?.firstname + " " + user?.lastname}
                 </span>
 
-                <span className="font-bold">Edit</span>
+                <span className="">Edit</span>
               </div>
             </div>
             <div>
@@ -134,7 +127,7 @@ export default function Accountdetails() {
             <div>
               <p className="text-sm mb-1">Phone</p>
               <div className="ml-{27px} mr-{20px} flex justify-between border-2 border-gray-100 p-2 rounded-md">
-                <span className=" font-normal">070474923494</span>
+                  <span className=" font-normal">{ user?.phone}</span>
 
                 <span>Edit</span>
               </div>

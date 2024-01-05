@@ -113,3 +113,11 @@ flex-shrink: 0;
 .signinBackground{
   background-image :url(./assets/blurBackgroundsignin.png)
 }
+
+
+/* @layer base {
+  html {
+    font-family: Inter;
+    src: url('./assets/static/Inter-Light.ttf');
+  }
+} */

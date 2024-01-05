@@ -51,7 +51,7 @@ export default function Signin() {
             
           }
       }
-      const userCookie = Cookies.get('user');
+      const userCookie = Cookies.get('User');
     if (userCookie) {
       navigate('/dashboard')
       

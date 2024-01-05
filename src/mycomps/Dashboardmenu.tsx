@@ -21,7 +21,7 @@ const Dashboardmenu = ({ isVisible, darkmode }: Props) => {
         >
                   <ul className="mt-4 font-medium leading-10">
                       <li><Link to="/dashboard/details">Account details</Link></li>
-                      <li>Deposit</li>
+                      <li><Link to="/dashboard/deposit">Deposit</Link></li>
                       <li>Withdraw</li>
                       <li>
                           Change Password
