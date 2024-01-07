@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { useState,useEffect } from "react"
 import Cookies from "js-cookie"
 import { Link } from "react-router-dom";
@@ -99,7 +98,7 @@ export default function Accountdetails() {
                   {user?.firstname + " " + user?.lastname}
                 </span>
 
-                <span className="">Edit</span>
+                {/* <span className="">Edit</span> */}
               </div>
             </div>
             <div>
@@ -110,10 +109,10 @@ export default function Accountdetails() {
             </div>
             <div>
               <p className="text-sm mb-1">Password</p>
-              <div className="ml-{27px} mr-{20px} flex justify-between border-2 border-gray-100 p-2 ">
+              <div className="ml-{27px} mr-{20px} flex justify-between border-2 border-gray-100 p-2 rounded-md">
                 <span className=" font-normal">***********</span>
 
-                <span>Edit</span>
+                {/* <span>Edit</span> */}
               </div>
             </div>
             <div>
@@ -121,7 +120,7 @@ export default function Accountdetails() {
               <div className="ml-{27px} mr-{20px} flex justify-between border-2 border-gray-100 p-2 rounded-md">
                   <span className=" font-normal">{ user?.country}</span>
 
-                <span>Edit</span>
+                {/* <span>Edit</span> */}
               </div>
             </div>
             <div>
@@ -129,14 +128,12 @@ export default function Accountdetails() {
               <div className="ml-{27px} mr-{20px} flex justify-between border-2 border-gray-100 p-2 rounded-md">
                   <span className=" font-normal">{ user?.phone}</span>
 
-                <span>Edit</span>
+                {/* <span>Edit</span> */}
               </div>
             </div>
           </div>
 
-          <Button className="block mx-auto p-2 mt-6 bg-blue-600 text-white">
-            CONFIRM CHANGES
-          </Button>
+        
         </main>
       )}
     </div>

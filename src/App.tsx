@@ -242,7 +242,7 @@ const App = () => {
               </p>
             </section>
 
-            <section className="p-10 ">
+            <section id="market" className="p-10 ">
               <h3 className="text-center font-bold text-xl mb-10">
                 ACCOUNT TYPES
               </h3>
@@ -381,7 +381,7 @@ const App = () => {
               </p>
             </section>
 
-            <footer className="p-4 bg-blue-400 dark:bg-blue-700 text-white">
+            <footer id="contact" className="p-4 bg-blue-400 dark:bg-blue-700 text-white">
               <h5 className="text-2xl mb-3 font-bold">Cryptonetverse</h5>
 
               <p>

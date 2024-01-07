@@ -7,6 +7,7 @@ import Cardoptionsimg from "../assets/card.png"
 import Btc from "../assets/btc.png"
 import Eth from "../assets/eth.png"
 import Usdt from "../assets/usdt.png"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -21,6 +22,7 @@ import {
 } from "@/components/ui/drawer";
 export default function Deposit() {
     const [darkmode ,setDarkmode] = useState<boolean>(false)
+    const [show,setShow] = useState<boolean>(false)
     const navigate = useNavigate()
    
     useEffect(() => {
@@ -42,8 +44,10 @@ export default function Deposit() {
         
     },[])
     return (
-      <>
-        <nav className="flex justify-between px-4 py-3">
+      <div
+        className={darkmode ? "dark relative h-screen bg-blue-900 text-white" : "relative h-screen"}
+      >
+        <nav className="flex justify-between px-4 py-3 shadow-md ">
           <Link to="/dashboard">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -69,15 +73,20 @@ export default function Deposit() {
             Select Deposit Method
           </h1>
 
-          <section>
-            <Drawer >
-              <DrawerTrigger className="w-screen h-fit active:border-none active:border-red-500 focus:border-none focus:border-red-300">
-                <div className="flex items-center justify-between px-2 border-black border bg-gray-100 rounded-md  text-sm">
+          <section className="dark:text-black">
+            <Drawer>
+              <DrawerTrigger className="w-full h-fit active:border-none active:border-red-500 focus:border-none focus:border-red-300">
+                <div onClick={()=>setShow(false)} className="flex items-center justify-between px-2 border-black border bg-gray-100 dark:border-0 dark:bg-gray-300 rounded-md  text-sm">
                   <p className="text-sm">Via Crypto tokens</p>
-                  <img src={Cryptoiconsimg} className="w-16" alt="" />
+                  <img
+                    loading="lazy"
+                    src={Cryptoiconsimg}
+                    className="w-16"
+                    alt=""
+                  />
                 </div>
               </DrawerTrigger>
-              <DrawerContent>
+              <DrawerContent className="">
                 <DrawerHeader>
                   <DrawerTitle>Copy wallet address</DrawerTitle>
                   <DrawerDescription>
@@ -87,9 +96,7 @@ export default function Deposit() {
                   <div className="mt-4">
                     <div className="flex justify-between">
                       <img src={Btc} alt="" />
-                      <p className="">
-                        1xijdee90ejdkddfkjfsf
-                      </p>
+                      <p className="">1xijdee90ejdkddfkjfsf</p>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -97,7 +104,6 @@ export default function Deposit() {
                         strokeWidth={1.5}
                         stroke="currentColor"
                         className="w-6 h-6"
-                        
                       >
                         <path
                           strokeLinecap="round"
@@ -108,9 +114,7 @@ export default function Deposit() {
                     </div>
                     <div className="flex justify-between mt-2">
                       <img src={Eth} alt="" />
-                      <p  className="">
-                        1xijdee90ejdkddfkjfsf
-                      </p>
+                      <p className="">1xijdee90ejdkddfkjfsf</p>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -118,7 +122,6 @@ export default function Deposit() {
                         strokeWidth={1.5}
                         stroke="currentColor"
                         className="w-6 h-6"
-                       
                       >
                         <path
                           strokeLinecap="round"
@@ -129,9 +132,7 @@ export default function Deposit() {
                     </div>
                     <div className="flex justify-between mt-3">
                       <img src={Usdt} alt="" />
-                      <p  className="">
-                        1xijdee90ejdkddfkjfsf
-                      </p>
+                      <p className="">1xijdee90ejdkddfkjfsf</p>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -139,7 +140,6 @@ export default function Deposit() {
                         strokeWidth={1.5}
                         stroke="currentColor"
                         className="w-6 h-6"
-                       
                       >
                         <path
                           strokeLinecap="round"
@@ -158,12 +158,37 @@ export default function Deposit() {
               </DrawerContent>
             </Drawer>
 
-            <div className="flex items-center justify-between px-2 py-3 border border-black bg-gray-100 rounded-md  mt-2 text-sm">
+            <div onClick={()=>{setShow(!show)}} className="flex items-center justify-between px-2 py-3 border border-black bg-gray-100 rounded-md  mt-2 text-sm dark:bg-gray-300">
               <p className="text-sm">Via Card </p>
               <img src={Cardoptionsimg} className="w-24" alt="" />
             </div>
           </section>
         </main>
-      </>
+
+        <Alert
+          variant="destructive"
+          className={show?"absolute  bottom-20 w-[98%] ml-1 dark:bg-gray-100 dark:text-red-700":"hidden"}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"
+            />
+          </svg>
+
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>
+            Method is unavailable at the moment. Try again later
+          </AlertDescription>
+        </Alert>
+      </div>
     );
 }
